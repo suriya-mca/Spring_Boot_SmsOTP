@@ -13,6 +13,7 @@ public class SMSService {
 	@Value("${TWILIO_SERVICE_SID}")
     String SERVICE_SID;
 
+    // verification using sms
 	public String sendOTP(String phoneNumber) {
 		
 		try {
@@ -28,6 +29,25 @@ public class SMSService {
 
 	}
 
+
+	// verification using whatsapp
+	public String sendWhatsAppOTP(String phoneNumber) {
+		
+		try {
+            Verification verification = Verification.creator(SERVICE_SID, phoneNumber, "whatsapp").create();
+            if("approved".equals(verification.getStatus()) || "pending".equals(verification.getStatus())) {
+				return "OTP sent";
+			}
+			return "some problem";
+        } 
+        catch (ApiException exception) {
+            return exception.getMessage();
+        }
+
+	}
+
+
+	// validate the verification code
 	public String verifyOTP(String phoneNumber, String otpCode) {
 		
 		try {

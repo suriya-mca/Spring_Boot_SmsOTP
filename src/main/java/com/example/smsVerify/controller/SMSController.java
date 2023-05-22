@@ -18,10 +18,17 @@ public class SMSController {
 		this.smsService = smsService;
 	}
 
-	@PostMapping("/sendOTP")
-	public String processOTP(@RequestBody SMSSendRequest sendRequest) {
+	@PostMapping("/smsOTP")
+	public String processSmsOTP(@RequestBody SMSSendRequest sendRequest) {
 
 		return smsService.sendOTP(sendRequest.phoneNumber());
+
+	}
+
+	@PostMapping("/whatsAppOTP")
+	public String processWhatsAppOTP(@RequestBody SMSSendRequest sendRequest) {
+
+		return smsService.sendWhatsAppOTP(sendRequest.phoneNumber());
 
 	}
 
